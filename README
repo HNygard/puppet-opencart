@@ -1,0 +1,16 @@
+
+Clone git repository
+	TODO
+
+Add required submodules (Modules from Puppet Labs)
+	git submodule add git@github.com:puppetlabs/puppetlabs-apache.git modules/apache
+	git submodule add git@github.com:puppetlabs/puppetlabs-stdlib.git modules/stdlib
+	git submodule add git@github.com:puppetlabs/puppetlabs-firewall.git modules/firewall
+
+Make your manifest file:
+
+	node 'server.example.com' {
+		class { 'opencart':
+		
+		}
+	}
