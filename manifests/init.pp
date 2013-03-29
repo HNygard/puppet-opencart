@@ -1,11 +1,16 @@
 
 
 class opencart (
-	opencart_home = '/var/opencart/',
-	apache_domain = 'www.example.com',
-	apache_serveradmin = 'webmaster@example.com',
-	apache_serveraliases = ['example.com', ]
+	$opencart_home = '/var/opencart/',
+	$apache_domain = 'www.example.com',
+	$apache_serveradmin = 'webmaster@example.com',
+	$apache_serveraliases = ['example.com', ],
+	$mysql_user = 'opencart',
+	$mysql_password = 'opencart',
+	$opencart_database = 'opencart'
 ) {
+	##########################
+	##### OPENCART SETUP #####
 	file { 'opencart_home':
 		path       => $opencart_home,
 		ensure     => directory
@@ -17,6 +22,8 @@ class opencart (
 		#]
 	}
 
+	##################
+	##### APACHE #####
 	class {'apache':  }
 	class {'apache::mod::php': }
 	apache::vhost { $apache_domain:
@@ -33,6 +40,20 @@ class opencart (
 	file { "${opencart_home}docroot/index.html":
 		content => 'test',
 		ensure => present,
+	}
+
+	#################
+	##### MYSQL #####
+	class { 'mysql': }
+	class { 'mysql::php': }
+	class { 'mysql::server':
+		config_hash => { 'root_password' => 'foo' }
+	}
+	mysql::db { $opencart_database:
+		user     => $mysql_user,
+		password => $mysql_password,
+		host     => 'localhost',
+		grant    => ['all'],
 	}
 }
 
