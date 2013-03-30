@@ -7,6 +7,7 @@ Add required submodules (Modules from Puppet Labs)
 	git submodule add git@github.com:puppetlabs/puppetlabs-stdlib.git modules/stdlib
 	git submodule add git@github.com:puppetlabs/puppetlabs-firewall.git modules/firewall
 	git submodule add git@github.com:puppetlabs/puppetlabs-mysql.git modules/mysql
+	git submodule add git@github.com:nodesagency/puppet-php.git modules/php
 
 Make your manifest file:
 
